@@ -16,7 +16,7 @@ def home():
     print_mediscore = False
 
     form = InputForm()
-
+# get form input
     if form.validate_on_submit():
         resp_type = int(form.resp_type.data)
         conc = int(form.conc.data)
@@ -25,14 +25,22 @@ def home():
         spo2 = form.spo2.data
         temp = form.temp.data
         cbg = form.cbg.data
-
+        
+# run function using form data
         medi_score = calculate_medi_score(resp_type, conc, resp_rate, spo2, temp, cbg, time_since)
+
+        #set alert to false for check
         alert = False
+
+        #check if function returned an error or the mediscore
         if isinstance(medi_score[0],int):
             alert = medi_score[1]
             medi_score = "The patient's Medi score is "+str(medi_score[0])+"."
+        
+        # enable mediscore text visibility
         print_mediscore = True
 
+        # send data to page
         return render_template('home.html', form=form,flag=print_mediscore,medi_score=medi_score,alert=alert)
 
     return render_template('home.html', form=form)
