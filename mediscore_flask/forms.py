@@ -2,6 +2,7 @@ from flask_wtf import FlaskForm
 from wtforms import SelectField, IntegerField, FloatField, SubmitField
 from wtforms.validators import InputRequired
 
+# create forms
 class InputForm(FlaskForm):
     resp_type = SelectField('What is the respiration type?', choices=[('', 'Please select'), ('2', 'Oxygen'), ('0', 'Air')], validators=[InputRequired()])
     conc = SelectField('Is the patient conscious?', choices=[('', 'Please select'), ('0', 'Aware'), ('3', 'Unconscious')], validators=[InputRequired()])
