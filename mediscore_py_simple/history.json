@@ -1,0 +1,94 @@
+{
+    "history": [
+        {
+            "time": "2024-02-18 03:26:46.156504",
+            "info": [
+                {
+                    "resp_type": 2,
+                    "consc_type": 0,
+                    "resp_rate_score": 0,
+                    "spo2_score": 2,
+                    "temp_score": 0,
+                    "cbg_score": 3,
+                    "medi_score": 4,
+                    "flag": false
+                }
+            ]
+        },
+        {
+            "time": "2024-02-18 03:26:57.645537",
+            "info": [
+                {
+                    "resp_type": 0,
+                    "consc_type": 0,
+                    "resp_rate_score": 0,
+                    "spo2_score": 0,
+                    "temp_score": 0,
+                    "cbg_score": 0,
+                    "medi_score": 0,
+                    "flag": false
+                }
+            ]
+        },
+        {
+            "time": "2024-02-18 03:27:02.608522",
+            "info": [
+                {
+                    "resp_type": 2,
+                    "consc_type": 0,
+                    "resp_rate_score": 0,
+                    "spo2_score": 2,
+                    "temp_score": 0,
+                    "cbg_score": 0,
+                    "medi_score": 4,
+                    "flag": true
+                }
+            ]
+        },
+        {
+            "time": "2024-02-19 14:58:25.243984",
+            "info": [
+                {
+                    "resp_type": 2,
+                    "consc_type": 3,
+                    "resp_rate_score": 3,
+                    "spo2_score": 3,
+                    "temp_score": 1,
+                    "cbg_score": 3,
+                    "medi_score": 12,
+                    "flag": true
+                }
+            ]
+        },
+        {
+            "time": "2024-02-19 15:00:14.867082",
+            "info": [
+                {
+                    "resp_type": 2,
+                    "consc_type": 3,
+                    "resp_rate_score": 3,
+                    "spo2_score": 3,
+                    "temp_score": 1,
+                    "cbg_score": 3,
+                    "medi_score": 12,
+                    "flag": false
+                }
+            ]
+        },
+        {
+            "time": "2024-02-19 16:30:05.604152",
+            "info": [
+                {
+                    "resp_type": 2,
+                    "consc_type": 3,
+                    "resp_rate_score": 3,
+                    "spo2_score": 3,
+                    "temp_score": 1,
+                    "cbg_score": 3,
+                    "medi_score": 15,
+                    "flag": true
+                }
+            ]
+        }
+    ]
+}
