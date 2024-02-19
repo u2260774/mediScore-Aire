@@ -24,6 +24,8 @@
     </div>
 
     <div style = "margin: 100px;">
+        
+        <!-- create forms -->
     <form method="post">
         {{ form.csrf_token }}
 <div class="form-row">
@@ -70,11 +72,15 @@
     </form>
 
     <div class="text-center">
+        
+        <!-- check if input was submitted -->
         {%if flag == True%}
             <div class="form-group mt-4">
+                
+        <!-- display mediscore -->
                 <h4 class="font-weight-bold">{{medi_score}}</h4>
             </div>
-
+        <!-- check if score increased suddenly, if so, display alert -->
             {%if alert == True%}
             <div class="form-group mt-4 alert alert-danger" role="alert">
                 ALERT! The patient needs immediate attention, rapid change in Medi Score detected
