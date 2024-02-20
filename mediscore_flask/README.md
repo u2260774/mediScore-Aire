@@ -4,7 +4,7 @@
 
 A web app that uses render, flask and the mediscore python program made earlier, to display the results of the program.
 
-## Steps to Run the Application
+## How to run
 
 ### 1. Clone the Repository
 
@@ -37,4 +37,19 @@ pip install -r requirements.txt
 
 ```bash
 flask --app app run
-``
+```
+
+### Screenshots
+
+Healthy patient
+
+![Healthy patient's medi score](/screenshots/healthy_patient.png?raw=true)
+
+Condition worsening
+
+![Change in medi score](/screenshots/mediscore_change.png?raw=true)
+
+Input error
+
+![Input error](/screenshots/input_error.png?raw=true)
+
