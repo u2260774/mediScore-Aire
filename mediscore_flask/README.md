@@ -36,7 +36,7 @@ pip install -r requirements.txt
 ### 4. Run application
 
 ```bash
-flask --app app run
+python app.py
 ```
 
 ## app.py
