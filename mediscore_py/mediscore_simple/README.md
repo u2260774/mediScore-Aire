@@ -2,7 +2,7 @@
 
 Stores the previous scores of the patient in the following format:
 
-bash
+```bash
 {
             "time": str(datetime.now()),
             "info": [
@@ -18,7 +18,7 @@ bash
                 }
             ]
         }
-
+```
 
 ### mediscore.py 
 
