@@ -1,6 +1,6 @@
 # Aire Logic MediScore Test
 
-## Solutions
+## Solution
 
 ### .py program
 
