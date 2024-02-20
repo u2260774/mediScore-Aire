@@ -1,8 +1,8 @@
-### history.json
+## history.json
 
 Stores the previous scores of the patient in the following format:
 
-```bash
+```json
 {
             "time": str(datetime.now()),
             "info": [
@@ -20,14 +20,163 @@ Stores the previous scores of the patient in the following format:
         }
 ```
 
-### mediscore.py 
+## mediscore.py 
 
 The main file, containing the functions necessary for handling and converting observations to scores.
 
-calculate_medi_score:
+### output
+```python
+print(calculate_medi_score(respiration.AIR.value, consciousness.ALERT.value, 15, 95, 37.1, 6.4, 0))
+print(calculate_medi_score(respiration.OXYGEN.value, consciousness.ALERT.value, 17, 95, 37.1, 6.4, 0))
+```
+![image](https://github.com/u2260774/mediScore-Aire/assets/126501906/ee9ae82c-e639-404a-bf24-9ec886431bf3)
+
+
+### imports
+```python
+from datetime import datetime
+import json
+from enum import Enum
+import os
+```
+
+### enums
+```python
+class respiration(Enum):
+    AIR = 0
+    OXYGEN = 2
+
+
+class consciousness(Enum):
+    ALERT = 0
+    CVPU = 3
+```
+### Score functions
+### Respiration and Consciousness
+```python
+def get_resp_type(resp):
+    if resp == respiration.AIR.value or resp == respiration.OXYGEN.value:
+        return resp
+    else:
+        raise Exception("Incorrect respiratory type. Must be AIR(0) or OXYGEN(2)")
+
+
+def get_consciousness(consc):
+    if consc == consciousness.ALERT.value or consc == consciousness.CVPU.value:
+        return consc
+    else:
+        raise Exception("Incorrect consciousness type. Must be ALERT(0) or CVPU(3)")
+
+```
+### Respiration rate
+```python
+def get_resp_rate(resp_rate):
+    try:
+        # make sure input was an integer
+        resp_rate = int(resp_rate)
+        if resp_rate < 0:
+            raise Exception("Respiration rate cannot be less than zero.")
+        if resp_rate <= 8 or resp_rate >= 25:
+            return 3
+        elif resp_rate <= 11:
+            return 1
+        elif resp_rate <= 20:
+            return 0
+        elif resp_rate <= 24:
+            return 2
+    except Exception as e:
+        if isinstance(resp_rate, int) and resp_rate < 0:
+            raise e
+        else:
+            raise Exception("Respiration rate must be whole digits only.")
+```
+### SpO2
+```python
+def get_spo2(spo2, resp_type):
+    try:
+        # make sure input was an integer
+        spo2 = int(spo2)
+        if spo2 <= 0:
+            raise Exception("SpO2 must be in range 0-100.")
+        if spo2 <= 83:
+            return 3
+        elif spo2 <= 85:
+            return 2
+        elif spo2 <= 87:
+            return 1
+        elif resp_type == respiration.AIR.value or spo2 <= 92:
+            return 0
+        elif spo2 <= 94:
+            return 1
+        elif spo2 <= 96:
+            return 2
+        elif resp_type >= 97:
+            return 3
+    except Exception as e:
+        if isinstance(spo2, int) and spo2 < 0:
+            raise e
+        else:
+            raise Exception("SpO2 accepts whole digits only.")
+```
+
+### Temperature
+```python
+def get_temp(temp):
+    try:
+        # make sure input was a float, round to one decimal point
+        temp = round(float(temp), 1)
+        # check if temperature is in Celsius (based on the most extreme survival scenarios)
+        if temp > 48.0 or temp < 12.0:
+            raise Exception("Temperature must be in celsius.")
+        if temp <= 35.0:
+            return 3
+        elif temp >= 39.1:
+            return 2
+        elif temp <= 36.0 or temp >= 38.1:
+            return 1
+        elif temp <= 38.0:
+            return 0
+    except Exception as e:
+        if temp < 0 and (isinstance(temp, float)):
+            raise e
+        else:
+            raise Exception("Temperature must be in digits.")
+```
+### CBG
+```python
+def get_cbg(cbg, timeSinceMeal):
+    try:
+        if cbg < 0:
+            raise Exception("CBG can not be negative. Only digits accepted")
+        # make sure input was a float, round to one decimal point
+        cbg = round(float(cbg), 1)
+        if timeSinceMeal <= 2:
+            if cbg <= 4.4 or cbg >= 9.0:
+                return 3
+            elif cbg <= 5.8 or cbg >= 7.9:
+                return 2
+            elif cbg <= 7.8:
+                return 0
+        else:
+            if cbg <= 3.4 or cbg >= 6.0:
+                return 3
+            elif cbg <= 3.9 or cbg >= 5.5:
+                return 2
+            elif cbg <= 5.4:
+                return 0
+    except Exception as e:
+        if cbg < 0 and (isinstance(cbg, float)):
+            raise e
+        else:
+            raise Exception("CBG must be in digits.")
+```
+### calculate_medi_score parameters
 
 ```python
 def calculate_medi_score(respirationType, consc, respRate, spo2, temperature, cbg, timeSinceMeal):
+```
+### getting scores
+```python
     try:
         # check current time for flag
         curr_time = datetime.now()
@@ -42,6 +191,9 @@ def calculate_medi_score(respirationType, consc, respRate, spo2, temperature, cb
         flag = False
         # add everything up
         medi_score = resp_type + consc_type + resp_rate_score + spo2_score + temp_score + cbg_score
+```
+### Looking for previous data
+```python
         # check if history file exists
         if os.path.isfile('history.json'):
             with open('history.json') as history:
@@ -53,6 +205,9 @@ def calculate_medi_score(respirationType, consc, respRate, spo2, temperature, cb
                 # check if less than 24 hours and greater than 2 difference
                 if delta.seconds / 86400 < 1 and medi_score - prev_score > 2:
                     flag = True
+```
+### Insert data into object
+```python
         # construct object to insert new data
         patient_info = {
             "time": str(datetime.now()),
@@ -69,6 +224,9 @@ def calculate_medi_score(respirationType, consc, respRate, spo2, temperature, cb
                 }
             ]
         }
+```
+### Write to history.json
+```python
         # check if file exists, create one if it doesn't
         if os.path.isfile('history.json') is False:
             with open('history.json', 'w') as history:
@@ -79,8 +237,13 @@ def calculate_medi_score(respirationType, consc, respRate, spo2, temperature, cb
             history_data["history"].append(patient_info)
             history.seek(0)
             json.dump(history_data, history, indent=4)
+```
+### Returning results and handling errors
+```python
         # return mediscore and flag
         return medi_score, flag
     except Exception as e:
         return str(e)
 ```
+
+## 
