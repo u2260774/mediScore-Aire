@@ -43,13 +43,13 @@ flask --app app run
 
 Healthy patient
 
-![Healthy patient's medi score](/screenshots/healthy_patient.png?raw=true)
+![Healthy patient's medi score](/mediscore_flask/screenshots/healthy_patient.png?raw=true)
 
 Condition worsening
 
-![Change in medi score](/screenshots/mediscore_change.png?raw=true)
+![Change in medi score](/mediscore_flask/screenshots/mediscore_change.png?raw=true)
 
 Input error
 
-![Input error](/screenshots/input_error.png?raw=true)
+![Input error](/mediscore_flask/screenshots/input_error.png?raw=true)
 
