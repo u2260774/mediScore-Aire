@@ -2,7 +2,7 @@
 
 Stores the previous scores of the patient in the following format:
 
-```json
+```bash
 {
             "time": str(datetime.now()),
             "info": [
