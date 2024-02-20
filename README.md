@@ -16,6 +16,6 @@ I used the function to create a web service hosted on render, and used flask for
 
 ### Java
 
-I also used java to create 2 similar versions of the solution. One uses a singular function, while the other one uses a patient and a mediscore class, and is more verbose. It displays the results in a more comprehensive manner.
+I also used java to create 2 similar versions of the solution. One uses a single class, while the other one uses a patient and a mediscore class, and is more verbose. It displays the results in a more comprehensive manner.
 
 The java repo can be found here: github.com/u2260774/mediscore_java
