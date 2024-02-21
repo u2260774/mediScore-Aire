@@ -15,9 +15,3 @@ I have been considered adding an id parameter to the method as well, which will 
 ### Web service using flask and render
 
 I used the function to create a web service hosted on render, and used flask for the web app. It takes in user input from forms and sends the data to the calculate function, the return value of which is used to display the result, or the error.
-
-### Java
-
-I also used java to create 2 similar versions of the solution. One uses a single class, while the other one uses a patient and a mediscore class, and is more verbose. It displays the results in a more comprehensive manner.
-
-The java repo can be found here: github.com/u2260774/mediscore_java
