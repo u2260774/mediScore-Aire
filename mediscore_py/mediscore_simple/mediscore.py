@@ -24,10 +24,13 @@ def get_resp_type(resp):
 
 
 def get_consciousness(consc):
-    if consc == consciousness.ALERT.value or consc == consciousness.CVPU.value:
-        return consc
+    if isinstance(consc, int):
+        if consc == 0:
+            return consciousness.ALERT.value
+        else:
+            return consciousness.CVPU.value
     else:
-        raise Exception("Incorrect consciousness type. Must be ALERT(0) or CVPU(3)")
+        raise Exception("Incorrect consciousness type. Must be AWARE(0) or CVPU(Non-Zero Digit)")
 
 
 # return respiration rate mediscore
@@ -184,9 +187,25 @@ def calculate_medi_score(respirationType, consc, respRate, spo2, temperature, cb
             history.seek(0)
             json.dump(history_data, history, indent=4)
         # return mediscore and flag
-        return medi_score, flag
+        return medi_score
     except Exception as e:
         return str(e)
 
 
-print(calculate_medi_score(respiration.OXYGEN.value, consciousness.CVPU.value, 58, 82, 39, 9, 0))
+def is_flagged():
+    if os.path.isfile('history.json'):
+        with open('history.json') as history:
+            history_data = json.load(history)
+            # get flag from last entry
+            return history_data["history"][-1]["info"][0]["flag"]
+
+    else:
+        return "Patient does not have a record."
+
+
+print(calculate_medi_score(respiration.AIR.value, consciousness.ALERT.value, 15, 95, 37.1, 6.4, 0))
+print(is_flagged())
+print(calculate_medi_score(respiration.OXYGEN.value, consciousness.ALERT.value, 17, 95, 37.1, 6.4, 0))
+print(is_flagged())
+print(calculate_medi_score(respiration.OXYGEN.value, consciousness.CVPU.value, 23, 88, 38.5, 6.4, 3))
+print(is_flagged())
