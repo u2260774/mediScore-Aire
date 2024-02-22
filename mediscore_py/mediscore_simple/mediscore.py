@@ -186,7 +186,7 @@ def calculate_medi_score(respirationType, consc, respRate, spo2, temperature, cb
             history_data["history"].append(patient_info)
             history.seek(0)
             json.dump(history_data, history, indent=4)
-        # return mediscore and flag
+        # return mediscore
         return medi_score
     except Exception as e:
         return str(e)
