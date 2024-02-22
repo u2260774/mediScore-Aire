@@ -15,7 +15,7 @@ I made a simple program in python that used the values of the observation to con
 
 All observations pass through functions that use try and except blocks to catch user errors. The result is saved to a .json file that serves as a history for the patient's previous scores. It uses the python's json and os modules to look for/read and write to the json file, alongside the datetime module, which is used to check the time passed since the previous observation.
 
-Depending on input, the calculate function returns either a string, which reports the error, or the mediscore as an integer. The flag can be checked using the isFlagged() function.
+Depending on input, the calculate function returns either a string, which reports the error, or the mediscore as an integer. The flag can be checked using the is_flagged() function.
 
 I have been considered adding an id parameter to the method as well, which will allow for working with multiple patients.
 
