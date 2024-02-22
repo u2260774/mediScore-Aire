@@ -73,7 +73,7 @@ def get_consciousness(consc):
         else:
             return consciousness.CVPU.value
     else:
-        raise Exception("Incorrect consciousness type. Must be AWARE(0) or CVPU(Non-Zero Digit)")
+        raise Exception("Incorrect consciousness type. Must be ALERT(0) or CVPU(Non-Zero Digit)")
 
 ```
 ### Respiration rate
