@@ -27,9 +27,14 @@ The main file, containing the functions necessary for handling and converting ob
 ### output
 ```python
 print(calculate_medi_score(respiration.AIR.value, consciousness.ALERT.value, 15, 95, 37.1, 6.4, 0))
+print(is_flagged())
 print(calculate_medi_score(respiration.OXYGEN.value, consciousness.ALERT.value, 17, 95, 37.1, 6.4, 0))
+print(is_flagged())
+print(calculate_medi_score(respiration.OXYGEN.value, consciousness.CVPU.value, 23, 88, 38.5, 6.4, 3))
+print(is_flagged())
 ```
-![image](https://github.com/u2260774/mediScore-Aire/assets/126501906/ee9ae82c-e639-404a-bf24-9ec886431bf3)
+
+![image](https://github.com/u2260774/mediScore-Aire/assets/126501906/382cc68b-1bc7-4440-a6d5-ea55c5e9daad)
 
 
 ### imports
@@ -62,10 +67,13 @@ def get_resp_type(resp):
 
 
 def get_consciousness(consc):
-    if consc == consciousness.ALERT.value or consc == consciousness.CVPU.value:
-        return consc
+    if isinstance(consc, int):
+        if consc == 0:
+            return consciousness.ALERT.value
+        else:
+            return consciousness.CVPU.value
     else:
-        raise Exception("Incorrect consciousness type. Must be ALERT(0) or CVPU(3)")
+        raise Exception("Incorrect consciousness type. Must be AWARE(0) or CVPU(Non-Zero Digit)")
 
 ```
 ### Respiration rate
@@ -240,8 +248,7 @@ def calculate_medi_score(respirationType, consc, respRate, spo2, temperature, cb
 ```
 ### Returning results and handling errors
 ```python
-        # return mediscore and flag
-        return medi_score, flag
+        return medi_score
     except Exception as e:
         return str(e)
 ```
